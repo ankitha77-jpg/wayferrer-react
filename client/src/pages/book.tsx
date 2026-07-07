@@ -1,7 +1,7 @@
 ﻿import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, BookOpen, Users, Award, CheckCircle, Plane, Briefcase, Shield, MapPin, Sparkles, Calendar, MessageCircle } from "lucide-react";
-import bookCoverImage from "@assets/image_1753867823536.png?url";
+import { bookCover } from "@/lib/images";
 
 const testimonials = [
   {
