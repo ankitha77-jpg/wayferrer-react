@@ -1,0 +1,12 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import ReactPage from '../components/ReactPage';
+---
+
+<Layout
+  title="Contact"
+  description="Get in touch with Wayfarer Footprints — for collaborations, travel enquiries, speaking requests, and more."
+  canonical="/contact"
+>
+  <ReactPage client:only="react" page="contact" />
+</Layout>

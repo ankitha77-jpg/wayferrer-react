@@ -1,0 +1,12 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import ReactPage from '../components/ReactPage';
+---
+
+<Layout
+  title="Work With Me"
+  description="Collaborate with Ankitha Rajendaran of Wayfarer Footprints. Brand partnerships, press trips, speaking engagements, and more."
+  canonical="/work-with-me"
+>
+  <ReactPage client:only="react" page="work-with-me" />
+</Layout>

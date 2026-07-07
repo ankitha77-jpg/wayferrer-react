@@ -1,0 +1,10 @@
+node_modules
+node_modules/*
+dist
+.DS_Store
+server/public
+vite.config.ts.*
+*.tar.gzclient/public/blog-images/
+client/public/blog-images_old/
+.vercel
+.env*

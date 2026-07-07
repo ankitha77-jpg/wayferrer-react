@@ -1,0 +1,9 @@
+---
+// Trip IDs come from a live database and can't be enumerated at build time.
+// getStaticPaths returns [] so Astro generates no files here.
+// Vercel's rewrite in vercel.json serves /trips/index.html for any /trips/:id URL,
+// and the React island on that page reads window.location.pathname client-side.
+export function getStaticPaths() {
+  return [];
+}
+---

@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="Page Not Found"
+  description="The page you were looking for doesn't exist. Explore Wayfarer Footprints travel guides and destinations instead."
+  canonical="/404"
+>
+  <div class="pt-32 pb-20 text-center px-4 min-h-screen flex flex-col items-center justify-center">
+    <p class="text-6xl mb-6">🧭</p>
+    <h1 class="text-4xl font-bold mb-4">Lost on the map?</h1>
+    <p class="text-gray-500 text-lg mb-8">
+      The page you're looking for doesn't exist. Let's get you back on track.
+    </p>
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="/" class="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-white shadow hover:bg-primary/90 transition-colors">
+        Go Home
+      </a>
+      <a href="/blog" class="inline-flex items-center justify-center rounded-md border border-primary px-6 py-3 text-sm font-medium text-primary hover:bg-primary/10 transition-colors">
+        Browse Blog
+      </a>
+    </div>
+  </div>
+</Layout>

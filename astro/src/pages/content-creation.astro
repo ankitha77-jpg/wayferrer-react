@@ -1,0 +1,12 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import ReactPage from '../components/ReactPage';
+---
+
+<Layout
+  title="Content Creation"
+  description="Wayfarer Footprints content creation services — travel photography, videography, and storytelling for brands and tourism boards."
+  canonical="/content-creation"
+>
+  <ReactPage client:only="react" page="content-creation" />
+</Layout>

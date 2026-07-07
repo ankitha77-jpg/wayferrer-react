@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CmsAdminShell from '../components/CmsAdminShell';
+---
+
+<Layout
+  title="CMS Admin"
+  description="Wayfarer Footprints content management system."
+  canonical="/cms-admin"
+>
+  <CmsAdminShell client:only="react" />
+</Layout>

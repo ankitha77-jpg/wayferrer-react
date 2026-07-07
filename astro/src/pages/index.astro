@@ -1,0 +1,12 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import ReactPage from '../components/ReactPage';
+---
+
+<Layout
+  title="Home"
+  description="Wayfarer Footprints — offbeat travel stories, solo travel guides, and group adventures led by Ankitha Rajendaran. 100+ countries explored."
+  canonical="/"
+>
+  <ReactPage client:only="react" page="home" />
+</Layout>

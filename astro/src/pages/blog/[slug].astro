@@ -1,0 +1,139 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+};
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const meta = post.data;
+const BASE_URL = 'https://wayfarerfootprints.com';
+
+const CONTINENT_SLUGS: Record<string, string> = {
+  Africa: 'africa',
+  Europe: 'europe',
+  Asia: 'asia',
+  'North America': 'north-america',
+  'South America': 'south-america',
+  Oceania: 'oceania',
+  Antarctica: 'antarctica',
+};
+
+const continentSlug = meta.continent ? CONTINENT_SLUGS[meta.continent] : undefined;
+
+const breadcrumbLD = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+    ...(continentSlug
+      ? [
+          { '@type': 'ListItem', position: 2, name: 'Destinations', item: `${BASE_URL}/destinations` },
+          { '@type': 'ListItem', position: 3, name: meta.continent, item: `${BASE_URL}/destinations/${continentSlug}` },
+          { '@type': 'ListItem', position: 4, name: meta.title, item: `${BASE_URL}/blog/${post.id}` },
+        ]
+      : [
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: `${BASE_URL}/blog` },
+          { '@type': 'ListItem', position: 3, name: meta.title, item: `${BASE_URL}/blog/${post.id}` },
+        ]),
+  ],
+};
+
+const articleLD = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: meta.title,
+  description: meta.description,
+  image: meta.image ? `${BASE_URL}${meta.image}` : undefined,
+  datePublished: meta.date,
+  author: { '@type': 'Person', name: 'Ankitha Rajendaran' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Wayfarer Footprints',
+    url: BASE_URL,
+  },
+};
+---
+
+<Layout
+  title={meta.title}
+  description={meta.description || `${meta.title} — travel guide by Wayfarer Footprints.`}
+  canonical={`/blog/${post.id}`}
+  image={meta.image ? `${BASE_URL}${meta.image}` : undefined}
+  type="article"
+  structuredData={[breadcrumbLD, articleLD]}
+>
+  <article class="pt-24 pb-20 max-w-4xl mx-auto px-4">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="mb-8">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500">
+        <li><a href="/" class="hover:text-primary transition-colors">Home</a></li>
+        <li class="text-gray-400" aria-hidden="true">/</li>
+        {continentSlug ? (
+          <>
+            <li><a href="/destinations" class="hover:text-primary transition-colors">Destinations</a></li>
+            <li class="text-gray-400" aria-hidden="true">/</li>
+            <li>
+              <a href={`/destinations/${continentSlug}`} class="hover:text-primary transition-colors">
+                {meta.continent}
+              </a>
+            </li>
+          </>
+        ) : (
+          <li><a href="/blog" class="hover:text-primary transition-colors">Blog</a></li>
+        )}
+        <li class="text-gray-400" aria-hidden="true">/</li>
+        <li class="text-gray-900 line-clamp-1 max-w-[200px] sm:max-w-xs" aria-current="page">
+          {meta.title}
+        </li>
+      </ol>
+    </nav>
+
+    <!-- Hero -->
+    <div class="mb-10 text-center">
+      <span class="text-primary font-bold uppercase tracking-wider text-sm">{meta.category}</span>
+      <h1 class="text-4xl md:text-6xl font-bold mt-4 mb-6">{meta.title}</h1>
+      <p class="text-gray-500">
+        Published on {new Date(meta.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+      </p>
+    </div>
+
+    {meta.image && (
+      <div class="rounded-2xl overflow-hidden mb-12 shadow-xl">
+        <img
+          src={meta.image}
+          alt={meta.title}
+          class="w-full h-auto object-cover max-h-[500px]"
+          loading="eager"
+        />
+      </div>
+    )}
+
+    <!-- Blog Content -->
+    <div class="prose prose-lg lg:prose-xl max-w-none prose-headings:font-bold prose-headings:scroll-mt-24 prose-a:text-primary">
+      <Content />
+    </div>
+
+    <!-- Back to continent -->
+    {continentSlug && (
+      <div class="mt-16 pt-8 border-t border-gray-200 text-center">
+        <p class="text-gray-500 mb-3 text-sm">More from this region</p>
+        <a
+          href={`/destinations/${continentSlug}`}
+          class="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
+        >
+          ← Browse all {meta.continent} guides
+        </a>
+      </div>
+    )}
+  </article>
+</Layout>

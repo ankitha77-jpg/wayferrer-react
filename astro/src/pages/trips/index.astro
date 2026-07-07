@@ -1,0 +1,12 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import ReactPage from '../../components/ReactPage';
+---
+
+<Layout
+  title="Group Trips"
+  description="Join Ankitha Rajendaran on handcrafted group adventures to Africa, Asia, South America, and beyond. Small groups, big experiences."
+  canonical="/trips"
+>
+  <ReactPage client:only="react" page="trips" />
+</Layout>

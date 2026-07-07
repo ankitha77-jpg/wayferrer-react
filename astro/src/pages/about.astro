@@ -1,0 +1,12 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import ReactPage from '../components/ReactPage';
+---
+
+<Layout
+  title="About"
+  description="Meet Ankitha Rajendaran — solo female traveler, author, and founder of Wayfarer Footprints. 100+ countries, 7 continents, and counting."
+  canonical="/about"
+>
+  <ReactPage client:only="react" page="about" />
+</Layout>

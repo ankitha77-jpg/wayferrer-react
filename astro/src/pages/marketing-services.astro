@@ -1,0 +1,12 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import ReactPage from '../components/ReactPage';
+---
+
+<Layout
+  title="Marketing Services"
+  description="Travel marketing services by Wayfarer Footprints — social media management, brand partnerships, and destination marketing."
+  canonical="/marketing-services"
+>
+  <ReactPage client:only="react" page="marketing-services" />
+</Layout>

@@ -1,0 +1,12 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import ReactPage from '../components/ReactPage';
+---
+
+<Layout
+  title="Book a Trip"
+  description="Book your spot on a Wayfarer Footprints group trip. Small groups, handcrafted itineraries, and expert guidance from Ankitha Rajendaran."
+  canonical="/book"
+>
+  <ReactPage client:only="react" page="book" />
+</Layout>

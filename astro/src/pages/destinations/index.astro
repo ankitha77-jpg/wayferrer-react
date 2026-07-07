@@ -1,0 +1,23 @@
+﻿---
+import Layout from '../../layouts/Layout.astro';
+import ReactPage from '../../components/ReactPage';
+
+const BASE_URL = 'https://wayfarerfootprints.com';
+const breadcrumbLD = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+    { '@type': 'ListItem', position: 2, name: 'Destinations', item: `${BASE_URL}/destinations` },
+  ],
+};
+---
+
+<Layout
+  title="Destinations"
+  description="Explore group trips and travel packages to Africa, Asia, Europe, and beyond. Offbeat adventures led by Ankitha Rajendaran."
+  canonical="/destinations"
+  structuredData={[breadcrumbLD]}
+>
+  <ReactPage client:only="react" page="destinations" />
+</Layout>

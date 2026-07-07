@@ -1,0 +1,12 @@
+﻿---
+import Layout from '../layouts/Layout.astro';
+import ReactPage from '../components/ReactPage';
+---
+
+<Layout
+  title="Travel Consultation"
+  description="Book a one-on-one travel consultation with Ankitha Rajendaran. Get personalized itineraries, safety tips, and expert advice for your next adventure."
+  canonical="/consultation"
+>
+  <ReactPage client:only="react" page="consultation" />
+</Layout>

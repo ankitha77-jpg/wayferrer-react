@@ -1,0 +1,213 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import type { GetStaticPaths } from 'astro';
+
+const CONTINENTS: Record<string, {
+  label: string;
+  continent: string;
+  description: string;
+  metaDescription: string;
+  heroImage: string;
+  emptyMessage: string;
+}> = {
+  asia: {
+    label: 'Asia',
+    continent: 'Asia',
+    description: 'From the temples of Southeast Asia to the steppes of Central Asia, explore the world\'s largest and most diverse continent through the eyes of a solo female traveler.',
+    metaDescription: 'Explore Asia travel guides — Vietnam, Nepal, Japan, India, Turkey, and beyond. Solo travel tips, itineraries, and offbeat destinations across the continent.',
+    heroImage: 'https://images.unsplash.com/photo-1480796927426-f609979314bd?auto=format&fit=crop&w=2070&q=80',
+    emptyMessage: 'Asia guides coming soon — check back shortly!',
+  },
+  africa: {
+    label: 'Africa',
+    continent: 'Africa',
+    description: 'Safari adventures, ancient civilisations, tribal cultures, and landscapes unlike anywhere else on Earth. Africa rewards the bold traveler.',
+    metaDescription: 'Africa travel guides — safari, Ethiopia, Morocco, Gabon, South Sudan, and beyond. Offbeat adventures across the continent.',
+    heroImage: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=2070&q=80',
+    emptyMessage: 'Africa guides coming soon — check back shortly!',
+  },
+  europe: {
+    label: 'Europe',
+    continent: 'Europe',
+    description: 'Beyond the Instagram hotspots — discover the Balkans, the Caucasus, Scandinavia, and lesser-visited corners of a continent packed with history and culture.',
+    metaDescription: 'Europe travel guides — Albania, Bosnia, Norway, Serbia, Sweden, and beyond. Off-the-beaten-path destinations across Europe.',
+    heroImage: 'https://images.unsplash.com/photo-1520986606214-8b456906c813?auto=format&fit=crop&w=2070&q=80',
+    emptyMessage: 'Europe guides coming soon — check back shortly!',
+  },
+  'north-america': {
+    label: 'North America',
+    continent: 'North America',
+    description: 'Central America\'s jungles, coastlines, and cultures await — from Panama to Costa Rica and beyond.',
+    metaDescription: 'North & Central America travel guides — Panama, Costa Rica, Honduras, and beyond. Adventure travel in the Americas.',
+    heroImage: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=2070&q=80',
+    emptyMessage: 'North America guides coming soon — check back shortly!',
+  },
+  'south-america': {
+    label: 'South America',
+    continent: 'South America',
+    description: 'Waterfalls, cloud forests, colonial cities, and incredible biodiversity across the continent of extremes.',
+    metaDescription: 'South America travel guides — Ecuador, Colombia, Guyana, and beyond. Adventure travel across South America.',
+    heroImage: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?auto=format&fit=crop&w=2070&q=80',
+    emptyMessage: 'South America guides coming soon — check back shortly!',
+  },
+  oceania: {
+    label: 'Australia & Oceania',
+    continent: 'Oceania',
+    description: 'From New Zealand\'s dramatic landscapes to the remote Pacific islands — explore the far corner of the world.',
+    metaDescription: 'Oceania & Australia travel guides — New Zealand and Pacific island adventures.',
+    heroImage: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2070&q=80',
+    emptyMessage: 'Oceania guides coming soon — check back shortly!',
+  },
+  antarctica: {
+    label: 'Antarctica',
+    continent: 'Antarctica',
+    description: 'The final frontier — expedition cruises, wildlife encounters, and landscapes that exist nowhere else on the planet.',
+    metaDescription: 'Antarctica travel guides — expedition cruises, wildlife, and tips for visiting the world\'s most remote continent.',
+    heroImage: 'https://images.unsplash.com/photo-1547234935-80c7145ec969?auto=format&fit=crop&w=2070&q=80',
+    emptyMessage: 'Antarctica guides coming soon — check back shortly!',
+  },
+};
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return ['asia', 'africa', 'europe', 'north-america', 'south-america', 'oceania', 'antarctica'].map(
+    (slug) => ({ params: { continent: slug } })
+  );
+};
+
+const { continent } = Astro.params;
+const meta = CONTINENTS[continent];
+
+if (!meta) {
+  return Astro.redirect('/destinations');
+}
+
+const allPosts = await getCollection('blog');
+const continentPosts = allPosts
+  .filter((p) => p.data.continent === meta.continent)
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const BASE_URL = 'https://wayfarerfootprints.com';
+
+const breadcrumbLD = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: BASE_URL },
+    { '@type': 'ListItem', position: 2, name: 'Destinations', item: `${BASE_URL}/destinations` },
+    { '@type': 'ListItem', position: 3, name: meta.label, item: `${BASE_URL}/destinations/${continent}` },
+  ],
+};
+
+const collectionLD = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${meta.label} Travel Guides`,
+  description: meta.metaDescription,
+  url: `${BASE_URL}/destinations/${continent}`,
+  hasPart: continentPosts.map((p) => ({
+    '@type': 'Article',
+    headline: p.data.title,
+    url: `${BASE_URL}/blog/${p.id}`,
+    image: p.data.image,
+  })),
+};
+---
+
+<Layout
+  title={`${meta.label} Travel Guides`}
+  description={meta.metaDescription}
+  canonical={`/destinations/${continent}`}
+  image={meta.heroImage}
+  structuredData={[breadcrumbLD, collectionLD]}
+>
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="max-w-6xl mx-auto px-4 pt-24 pb-2">
+    <ol class="flex flex-wrap items-center gap-1.5 text-sm text-gray-500">
+      <li><a href="/" class="hover:text-primary transition-colors">Home</a></li>
+      <li class="text-gray-400" aria-hidden="true">/</li>
+      <li><a href="/destinations" class="hover:text-primary transition-colors">Destinations</a></li>
+      <li class="text-gray-400" aria-hidden="true">/</li>
+      <li class="text-gray-900 font-medium" aria-current="page">{meta.label}</li>
+    </ol>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative py-24 overflow-hidden">
+    <div
+      class="absolute inset-0 bg-cover bg-center"
+      style={`background-image: url('${meta.heroImage}')`}
+    ></div>
+    <div class="absolute inset-0 bg-black/55"></div>
+    <div class="relative max-w-4xl mx-auto px-4 text-center text-white">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6">{meta.label}</h1>
+      <p class="text-lg md:text-xl text-white/85 max-w-2xl mx-auto">{meta.description}</p>
+    </div>
+  </section>
+
+  <!-- Posts grid -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-4">
+      {continentPosts.length > 0 ? (
+        <>
+          <h2 class="text-2xl font-bold mb-8 text-gray-900">
+            {continentPosts.length} {continentPosts.length === 1 ? 'Guide' : 'Guides'}
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {continentPosts.map((post) => (
+              <a href={`/blog/${post.id}`} class="group block">
+                <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all hover:-translate-y-1 overflow-hidden h-full">
+                  <div class="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={post.data.image}
+                      alt={post.data.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="p-4">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold bg-secondary/10 text-secondary">
+                        {post.data.category}
+                      </span>
+                      <span class="text-[10px] text-gray-400">
+                        {new Date(post.data.date).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <h3 class="font-semibold text-gray-900 mb-1 line-clamp-2">{post.data.title}</h3>
+                    <p class="text-sm text-gray-600 line-clamp-2">{post.data.description}</p>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div class="text-center py-24">
+          <p class="text-4xl mb-4">🧭</p>
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">Coming Soon</h2>
+          <p class="text-gray-500 mb-6">{meta.emptyMessage}</p>
+          <a href="/destinations" class="text-primary font-semibold hover:underline">
+            ← Back to all destinations
+          </a>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-gradient-to-br from-primary/10 to-accent/10">
+    <div class="max-w-2xl mx-auto px-4 text-center">
+      <h2 class="text-2xl md:text-3xl font-bold mb-4">Plan Your {meta.label} Adventure</h2>
+      <p class="text-gray-600 mb-8">
+        Get personalised itineraries and travel tips for {meta.label} — tailored to your travel style.
+      </p>
+      <a
+        href="/consultation"
+        class="inline-flex items-center justify-center rounded-md bg-primary px-6 py-3 text-sm font-medium text-white shadow hover:bg-primary/90 transition-colors"
+      >
+        Plan My Trip
+      </a>
+    </div>
+  </section>
+</Layout>

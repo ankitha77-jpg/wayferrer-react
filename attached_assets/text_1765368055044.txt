@@ -1,0 +1,30 @@
+Africa - 36/54
+🇩🇿 Algeria, 🇦🇴 Angola, 🇧🇯 Benin, 🇧🇼 Botswana, 🇧🇮 Burundi, 🇨🇲 Cameroon, 🇰🇲 Comoros, 🇨🇩 Democratic Republic of Congo, 🇩🇯 Djibouti, 🇪🇬 Egypt, 🇪🇷 Eritrea, 🇸🇿 Eswatini (Swaziland), 🇪🇹 Ethiopia, 🇬🇦 Gabon, 🇬🇭 Ghana, 🇰🇪 Kenya, 🇱🇸 Lesotho, 🇱🇾 Libya, 🇲🇬 Madagascar, 🇲🇼 Malawi, 🇲🇺 Mauritius, 🇲🇦 Morocco, 🇲🇿 Mozambique, 🇳🇦 Namibia, 🇷🇼 Rwanda, 🇸🇹 Sao Tome & Principe, 🇸🇨 Seychelles, 🇸🇴 Somalia, 🇿🇦 South Africa, 🇸🇸 South Sudan, 🇸🇩 Sudan, 🇹🇿 Tanzania, 🇹🇬 Togo, 🇺🇬 Uganda, 🇿🇲 Zambia, 🇿🇼 Zimbabwe
+
+Australia & Oceania - 1/14
+🇳🇿 New Zealand
+
+Central America - 6/20
+🇧🇿 Belize, 🇨🇷 Costa Rica, 🇬🇹 Guatemala, 🇭🇳 Honduras, 🇳🇮 Nicaragua, 🇵🇦 Panama
+
+Central Asia - 6/6
+🇰🇿 Kazakhstan, 🇰🇬 Kyrgyzstan, 🇷🇺 Russia, 🇹🇯 Tajikistan, 🇹🇲 Turkmenistan, 🇺🇿 Uzbekistan
+
+East & Southeast Asia - 12/16
+🇲🇲 Burma (Myanmar), 🇰🇭 Cambodia, 🇨🇳 China, 🇮🇩 Indonesia, 🇯🇵 Japan, 🇱🇦 Laos, 🇲🇾 Malaysia, 🇲🇳 Mongolia, 🇵🇭 Philippines, 🇸🇬 Singapore, 🇹🇭 Thailand, 🇻🇳 Vietnam
+
+Europe - 29/44
+🇦🇱 Albania, 🇦🇹 Austria, 🇧🇦 Bosnia & Herzegovina, 🇧🇬 Bulgaria, 🇨🇿 Czech Republic, 🇩🇰 Denmark, 🇪🇪 Estonia, 🇫🇮 Finland, 🇫🇷 France, 🇩🇪 Germany, 🇻🇦 Holy See (Vatican), 🇭🇺 Hungary, 🇮🇸 Iceland, 🇮🇹 Italy, 🇱🇻 Latvia, 🇱🇮 Liechtenstein, 🇱🇹 Lithuania, 🇲🇪 Montenegro, 🇳🇱 Netherlands, 🇲🇰 North Macedonia, 🇳🇴 Norway, 🇵🇱 Poland, 🇷🇴 Romania, 🇷🇸 Serbia, 🇸🇰 Slovakia, 🇸🇮 Slovenia, 🇸🇪 Sweden, 🇨🇭 Switzerland, 🇬🇧 United Kingdom
+
+Middle East - 16/18
+🇦🇲 Armenia, 🇦🇿 Azerbaijan, 🇧🇭 Bahrain, 🇬🇪 Georgia, 🇮🇷 Iran, 🇮🇶 Iraq, 🇯🇴 Jordan, 🇰🇼 Kuwait, 🇱🇧 Lebanon, 🇴🇲 Oman, 🇶🇦 Qatar, 🇸🇦 Saudi Arabia, 🇸🇾 Syria, 🇹🇷 Turkey, 🇦🇪 United Arab Emirates, 🇾🇪 Yemen
+
+North America - 2/3
+🇲🇽 Mexico, 🇺🇸 United States
+
+South America - 5/12
+🇦🇷 Argentina, 🇨🇴 Colombia, 🇪🇨 Ecuador, 🇬🇾 Guyana, 🇵🇪 Peru
+
+South Asia - 6/8
+🇦🇫 Afghanistan, 🇧🇹 Bhutan, 🇮🇳 India, 🇲🇻 Maldives, 🇳🇵 Nepal, 🇱🇰 Sri Lanka
+

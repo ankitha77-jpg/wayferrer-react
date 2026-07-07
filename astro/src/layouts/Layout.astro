@@ -1,0 +1,82 @@
+---
+import '../styles/global.css';
+import NavbarShell from '../components/NavbarShell';
+import FooterShell from '../components/FooterShell';
+import GlobalExtras from '../components/GlobalExtras';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  image?: string;
+  type?: 'website' | 'article';
+  structuredData?: object[];
+}
+
+const {
+  title,
+  description,
+  canonical,
+  image,
+  type = 'website',
+  structuredData = [],
+} = Astro.props;
+
+const SITE_NAME = 'Wayfarer Footprints';
+const BASE_URL = 'https://wayfarerfootprints.com';
+const fullTitle = `${title} | ${SITE_NAME}`;
+const canonicalUrl = `${BASE_URL}${canonical}`;
+const ogImage = image || `${BASE_URL}/images/og-default.jpg`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={SITE_NAME} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-490NWDP8EK"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-490NWDP8EK');
+    </script>
+
+    <!-- JSON-LD Structured Data -->
+    {structuredData.map((sd) => (
+      <script type="application/ld+json" set:html={JSON.stringify(sd)} />
+    ))}
+  </head>
+  <body>
+    <NavbarShell client:only="react" />
+    <main class="min-h-screen">
+      <slot />
+    </main>
+    <FooterShell client:only="react" />
+    <GlobalExtras client:only="react" />
+  </body>
+</html>
